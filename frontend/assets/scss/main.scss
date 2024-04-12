@@ -1,0 +1,21 @@
+.formkit-outer {
+  .formkit-wrapper {
+    max-width: unset !important;
+  }
+
+  &.required .formkit-label:after {
+    content: ' *';
+    color: red;
+  }
+}
+
+.row .formkit-outer:not(:last-child) {
+  padding-right: 15px;
+}
+
+.container .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 100%;
+}

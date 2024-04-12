@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "Nuxtr.nuxt-vscode-extentions",
+    "aaron-bond.better-comments",
+    "wayou.vscode-todo-highlight"
+  ]
+}
