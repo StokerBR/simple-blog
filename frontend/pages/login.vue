@@ -2,7 +2,12 @@
   <div class="wrapper">
     <div class="card bg-white">
       <h1>Login</h1>
-      <form @submit.prevent="handleLogin">
+      <FormKit
+        type="form"
+        :actions="false"
+        :incomplete-message="false"
+        @submit="handleLogin"
+      >
         <!-- <input type="email" v-model="form.email" /> -->
         <FormKit
           v-model="form.email"
@@ -30,7 +35,7 @@
             class="col-12"
           />
         </div>
-      </form>
+      </FormKit>
     </div>
   </div>
 </template>

@@ -2,7 +2,12 @@
   <div class="wrapper">
     <div class="card bg-white">
       <h1>Cadastro</h1>
-      <form @submit.prevent="handleRegister">
+      <FormKit
+        type="form"
+        :actions="false"
+        :incomplete-message="false"
+        @submit="handleRegister"
+      >
         <FormKit
           v-model="form.name"
           type="text"
@@ -54,7 +59,7 @@
             class="col-12"
           />
         </div>
-      </form>
+      </FormKit>
     </div>
   </div>
 </template>
