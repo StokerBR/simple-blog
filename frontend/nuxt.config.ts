@@ -40,6 +40,9 @@ export default defineNuxtConfig({
         process.env.NODE_ENV !== 'production'
           ? 'http://localhost:8000/api'
           : process.env.API_URL,
+      clientId: process.env.CLIENT_ID || '2',
+      clientSecret:
+        process.env.CLIENT_SECRET || 'atfqA5GPpI8HofYcBpAf0LGC9LDKkL1MQ0uLwWtn',
     },
   },
   app: {

@@ -49,8 +49,8 @@ definePageMeta({
 });
 
 const form = ref({
-  email: 'henrique@sysout.com.br',
-  password: 'sysout',
+  email: 'henrique@email.com',
+  password: 'senha123',
 });
 
 const auth = useAuthStore();

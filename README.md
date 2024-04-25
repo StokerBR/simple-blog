@@ -12,6 +12,5 @@ It was made to serve as an example and boilerplate for a fullstack application u
 **Backend:**
 
 - Laravel
-- Laravel Sanctum
-- Laravel Breeze
+- Laravel Passport
 - PostgreSQL

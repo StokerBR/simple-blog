@@ -6,17 +6,20 @@ import type { UseFetchOptions } from 'nuxt/app';
  * @param options
  * @returns
  */
-export function useApiFetch<T>(path: string, options: UseFetchOptions<T> = {}) {
+export async function useApiFetch<T>(
+  path: string,
+  options: UseFetchOptions<T> = {}
+) {
   const url = apiUrl(path);
-  const token = useCookie('XSRF-TOKEN');
+  const accessToken = localStorage.getItem('access_token');
 
   let headers: Record<string, string> = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
 
-  if (token.value) {
-    headers['X-XSRF-TOKEN'] = token.value as string;
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
   /* if (process.server) {
@@ -34,6 +37,7 @@ export function useApiFetch<T>(path: string, options: UseFetchOptions<T> = {}) {
       ...headers,
       ...options?.headers,
     },
+
     async onResponseError({ request, response, options }) {
       console.log('[fetch response error]', response);
       if (response.status === 401) {

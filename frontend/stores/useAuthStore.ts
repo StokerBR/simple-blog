@@ -18,6 +18,13 @@ type RegistrationInfo = {
   password_confirmation: string;
 };
 
+type TokenData = {
+  token_type: string;
+  expires_in: number;
+  access_token: string;
+  refresh_token: string;
+};
+
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
   const isLoggedIn = computed(() => !!user.value);
@@ -44,21 +51,38 @@ export const useAuthStore = defineStore('auth', () => {
   async function login(credentials: LoginData) {
     Loading.show();
 
-    await useApiFetch('/sanctum/csrf-cookie');
+    // await useApiFetch('/sanctum/csrf-cookie');
+    const config = useRuntimeConfig();
 
-    const response = await useApiFetch('/login', {
+    const response = await useApiFetch('/token', {
       method: 'POST',
-      body: credentials,
+      body: {
+        grant_type: 'password',
+        client_id: config.public.clientId,
+        client_secret: config.public.clientSecret,
+        username: credentials.email,
+        password: credentials.password,
+        scope: '',
+      },
     });
 
     const { data, error } = response;
     console.log(response, data, error);
 
     if (error.value) {
-      apiErrorMessage(error.value, 'Erro ao realizar login');
+      if (error.value.data.error == 'invalid_grant') {
+        $alert.error('Credenciais inválidas');
+      } else {
+        apiErrorMessage(error.value, 'Erro ao realizar login');
+      }
     }
 
     if (response.status.value == 'success') {
+      const { access_token, refresh_token } = data.value as TokenData;
+
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+
       await fetchUser();
     }
 
